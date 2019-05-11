@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png" width="400">
+    <h1>Vue.js & Flaskのサンプルアプリへようこそ</h1>
     <router-view/>
   </div>
 </template>
