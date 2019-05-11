@@ -1,63 +1,39 @@
 <template>
-  <div class="hello">
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank">
-            Core Docs
-          </a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank">
-            Forum
-          </a>
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank">
-            Community Chat
-          </a>
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank">
-            Twitter
-          </a>
-      </li>
-      <br>
-      <li>
-        <a href="http://vuejs-templates.github.io/webpack/" target="_blank">
-            Docs for This Template
-          </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a href="http://router.vuejs.org/" target="_blank">
-            vue-router
-          </a>
-      </li>
-      <li>
-        <a href="http://vuex.vuejs.org/" target="_blank">
-            vuex
-          </a>
-      </li>
-      <li>
-        <a href="http://vue-loader.vuejs.org/" target="_blank">
-            vue-loader
-          </a>
-      </li>
-      <li>
-        <a href="https://github.com/vuejs/awesome-vue" target="_blank">
-            awesome-vue
-          </a>
-      </li>
-    </ul>
+  <div>
+    <p>Home page</p>
+    <p>Random number from backend: {{ randomNumber }}</p>
+    <button @click="getRandom">New random number</button>
   </div>
 </template>
 
+
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'HelloWorld',
+  data () {
+    return {
+      randomNumber: 0
+    }
+  },
+  methods: {
+    getRandom () {
+      this.randomNumber = this.getRandomFromBackend()
+    },
+    getRandomFromBackend () {
+      const path = `http://localhost:5000/api/random`
+      axios.get(path)
+      .then(response => {
+        this.randomNumber = response.data.randomNumber
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+},
+  created () {
+    this.getRandom()
+  }
 }
 </script>
 
